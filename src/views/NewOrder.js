@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ImageBackground, StatusBar, StyleSheet, Text } from 'react-native';
-import { Button, Icon } from 'native-base';
-
+import { Button, Icon, Picker } from 'native-base';
+import ButonComponent from '../components/Button'
 export default class NewOrder extends Component {
   constructor(props) {
     super(props);
@@ -21,11 +21,11 @@ export default class NewOrder extends Component {
 
   render() {
     const { navigation } = this.props
-    console.log(navigation.state.params.image)
+    const arrayPicker = ['1', '2', '3', '4']
     return (
       <View style={{ flex: 1 }}>
         <StatusBar translucent backgroundColor="transparent" />
-        <View style={{ flex: 1}} >
+        <View style={{ flex: 1 }} >
           <ImageBackground source={navigation.state.params.image} style={styles.imageBackground}>
 
             <Button transparent style={styles.buttonsStyle} onPress={this.handleBack}>
@@ -79,15 +79,38 @@ export default class NewOrder extends Component {
           </View>
 
           <View>
-            <Text style={{ paddingHorizontal: 25, paddingTop: 10 }}>
-              Table:
-            </Text>
-          </View>
-          <View style={styles.buttonContainer}>
 
+            <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+              <Text style={{ paddingHorizontal: 25, paddingTop: 17 }}>
+                Table Nro:
+              </Text>
+              <View style={{ width: '30%' }}>
+                <Picker
+                  mode="dropdown"
+                  selectedValue={this.state.address}
+                  onValueChange={this.onValueChange}
+                >
+                  {arrayPicker.map((address) => (
+                    <Picker.Item
+                      key={address}
+                      label={address}
+                      value={address}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+          </View>
+
+          <View style={{ height: 50, width: "100%", paddingHorizontal: '5%', marginTop: 10 }}>
+            <ButonComponent
+              title="Holaaaaa"
+              type="primary"
+              handleSubmit={() => { }}
+            />
           </View>
         </View>
-      </View>
+      </View >
     );
   }
 }
@@ -152,6 +175,16 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10
-  }
+  },
+
+  dropDownStyle: {
+    marginVertical: 20,
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    marginHorizontal: 20
+  },
+
+
 
 })
