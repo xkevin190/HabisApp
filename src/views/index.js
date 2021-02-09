@@ -1,8 +1,10 @@
-import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
-import Auth from './auth';
-
-export default class index extends PureComponent {
+import React, {PureComponent} from 'react';
+import {View, Text} from 'react-native';
+import Auth from './Auth';
+import {connect} from 'react-redux';
+import {logout} from '../store/AplicationAction';
+import Home from './Home';
+class DualApp extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,11 +12,21 @@ export default class index extends PureComponent {
     };
   }
 
+
+  static navigationOptions = {
+    header: null,
+  };
+
   render() {
     return (
       <View>
-        <Auth />
+        {!this.props.auth && <Auth {...this.props} />}
+        {this.props.auth && <Home  navigation={this.props.navigation}/>}
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => state.app;
+
+export default connect(mapStateToProps, {logout})(DualApp);

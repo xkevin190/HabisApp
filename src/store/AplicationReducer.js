@@ -8,7 +8,10 @@ const AplicationState = {
 export const AplicationReducer = (state = AplicationState, action) => {
   switch (action.type) {
     case ActionTypes.INITIAL_STATE: {
-      return {...state};
+      return {...state, auth: action.payload};
+    }
+    case ActionTypes.AUTH: {
+      return {...state, auth: action.payload};
     }
     default: {
       return state;

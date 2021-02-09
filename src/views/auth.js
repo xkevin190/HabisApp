@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import InputField from '../components/Input';
 import Button from '../components/Button';
-import { View, ScrollView, ToastAndroid, Image } from 'react-native';
-import { Formik } from 'formik';
+import {View, ScrollView, ToastAndroid, Image} from 'react-native';
+import {Formik} from 'formik';
 import * as yup from 'yup';
-import { AsyncStorage } from 'react-native';
+import {AsyncStorage} from 'react-native';
 
 const logo = require('../utils/img/logo.jpg');
 const initialValues = {
@@ -22,19 +22,8 @@ export default class Equilibrio extends Component {
     };
   }
 
-  handleTest = async () => {
-    try {
-      await AsyncStorage.setItem(
-        'user',
-        JSON.stringify({ userName: 'admin', password: 'admin' }),
-      );
-    } catch (error) {
-      console.log('err', error);
-    }
-  };
-
-  handleSubmit = async (values, { resetForm }) => {
-    await this.props.login(values, (message) => {
+  handleSubmit = async (values, {resetForm}) => {
+    await this.props.logout(values, (message) => {
       ToastAndroid.showWithGravityAndOffset(
         message,
         1,
@@ -82,20 +71,21 @@ export default class Equilibrio extends Component {
           InitialValues={initialValues}
           onSubmit={this.handleSubmit}
           validationSchema={validationSchema}
-          render={({ values, handleSubmit, setFieldValue, errors }) => (
+          render={({values, handleSubmit, setFieldValue, errors}) => (
             <ScrollView
+              keyboardShouldPersistTaps="handled"
               contentContainerStyle={{
                 flexGrow: 1,
                 alignItems: 'center',
                 paddingBottom: 40,
               }}>
-              <View style={{ marginTop: 30 }}>
+              <View style={{marginTop: 30}}>
                 <Image
                   source={logo}
-                  style={{ resizeMode: 'contain', height: 300 }}
+                  style={{resizeMode: 'contain', height: 300}}
                 />
               </View>
-              <View style={{ width: '90%' }}>
+              <View style={{width: '90%'}}>
                 <InputField
                   label="Username"
                   value={values.username}
@@ -115,7 +105,7 @@ export default class Equilibrio extends Component {
               </View>
 
               {this.state.view === 'login' && (
-                <View style={{ position: 'relative', left: '30%' }}>
+                <View style={{position: 'relative', left: '30%'}}>
                   <Button
                     title="LOGIN"
                     type="other"

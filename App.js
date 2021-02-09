@@ -6,34 +6,21 @@
  * @flow strict-local
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import AppComponent from './src/views';
 import { Provider } from 'react-redux';
 import store from './src/store';
+import { veryState } from './src/store/AplicationAction';
+import RouteContainer from './src/route'
 
-
-// const WrappedStack = ({ t }) => (
-//   <RouteContainer
-//     ref={(ref) => {
-//       NativationService.setTopLevelNavigator(ref);
-//     }}
-//     screenProps={{ t }}
-//   />
-// );
-// const ReloadAppOnLanguageChange = translate('common', {
-//   bindI18n: 'languageChanged',
-//   bindStore: false
-// })(WrappedStack);
-
-
-// eslint-disable-next-line react/prefer-stateless-function
 export default class App extends Component {
-
   render() {
-    // store.dispatch(verifyAplicationState());
+    store.dispatch(veryState());
     return (
       <Provider store={store}>
-        <AppComponent />
+        <RouteContainer>
+            <AppComponent />
+        </RouteContainer>
       </Provider>
     );
   }
