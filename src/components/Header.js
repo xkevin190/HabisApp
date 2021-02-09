@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-import { Header, Body, Right, Button, Icon, Title,StatusBar } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { Header, Body, Right, Button, Icon, Title, StatusBar } from 'native-base';
+import { StyleSheet, Text } from 'react-native';
 
 export default class HeaderComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+
+  goToOrders = () => {
+    this.props.navigation.navigate('orders')
   }
 
   render() {
     return (
       <Header style={styles.headerStyle} androidStatusBarColor="#039343">
         <Body>
-          <Title style={styles.title}>Pizzas</Title>
+          <Title style={styles.title}>
+            {this.props.title ? this.props.title : 'Pizzas'}</Title>
         </Body>
-        <Right>
-          <Button transparent>
+        {this.props.order && <Right>
+          <Button transparent onPress={this.goToOrders}>
+            <Text style={styles.textStyle}>{this.props.order.length}</Text>
             <Icon name="pizza" />
           </Button>
-        </Right>
+        </Right>}
       </Header>
     );
   }
@@ -33,4 +35,10 @@ const styles = StyleSheet.create({
   headerStyle: {
     backgroundColor: '#039343',
   },
+
+  textStyle: {
+    color: 'white',
+    fontSize: 18
+  }
+
 });

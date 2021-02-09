@@ -4,10 +4,12 @@ import {
 } from 'react-navigation';
 import DualComponent from './views/index'
 import NewOrder from './views/NewOrder'
+import Orders from './views/Orders'
 
 export const AppStackNavigator = createStackNavigator({
   inital: DualComponent,
   newOrder: NewOrder,
+  orders: Orders
 });
 
 

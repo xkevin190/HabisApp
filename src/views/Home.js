@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import Header from '../components/Header';
 import { pizzas } from '../utils/constants/'
 
@@ -9,8 +9,8 @@ export default class Home extends Component {
     super(props);
   }
 
-  handleSelect = (data)=>{
-    this.props.navigation.navigate('newOrder',{
+  handleSelect = (data) => {
+    this.props.navigation.navigate('newOrder', {
       ...data
     })
   }
@@ -18,10 +18,10 @@ export default class Home extends Component {
 
     return (
       <View>
-        <Header />
+        <Header order={this.props.order} navigation={this.props.navigation} />
         <View style={styles.imageContainer}>
           {pizzas.map((data, key) => (
-            <TouchableOpacity  key={key} style={styles.boxImage} onPress={()=>this.handleSelect(data)}>
+            <TouchableOpacity key={key} style={styles.boxImage} onPress={() => this.handleSelect(data)}>
               <ImageBackground
                 source={data.image}
                 style={styles.imageBackground}>
@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color:'white',
-    fontSize:20,
-    fontWeight:'bold',
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: {width: -1, height: 1},
+    textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10
   },
 
