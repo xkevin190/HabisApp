@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Body, Right, Button, Icon, Title } from 'native-base';
+import { Header, Body, Right, Button, Icon, Title,StatusBar } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 export default class HeaderComponent extends Component {
@@ -16,7 +16,7 @@ export default class HeaderComponent extends Component {
         </Body>
         <Right>
           <Button transparent>
-            <Icon name="menu" />
+            <Icon name="pizza" />
           </Button>
         </Right>
       </Header>
