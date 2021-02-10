@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../components/Header';
 import { pizzas } from '../utils/constants/'
 
@@ -11,25 +11,28 @@ export default class Home extends Component {
 
   handleSelect = (data) => {
     this.props.navigation.navigate('newOrder', {
-      ...data
+      ...data,
+      order: this.props.order.length
     })
   }
   render() {
 
     return (
       <View>
-        <Header order={this.props.order} navigation={this.props.navigation} />
-        <View style={styles.imageContainer}>
-          {pizzas.map((data, key) => (
-            <TouchableOpacity key={key} style={styles.boxImage} onPress={() => this.handleSelect(data)}>
-              <ImageBackground
-                source={data.image}
-                style={styles.imageBackground}>
-                <Text style={styles.text}>{data.flavor}</Text>
-              </ImageBackground>
-            </TouchableOpacity>
-          ))}
-        </View>
+        <ScrollView>
+          <Header order={this.props.order} signOff={this.props.signOff} navigation={this.props.navigation} />
+          <View style={styles.imageContainer}>
+            {pizzas.map((data, key) => (
+              <TouchableOpacity key={key} style={styles.boxImage} onPress={() => this.handleSelect(data)}>
+                <ImageBackground
+                  source={data.image}
+                  style={styles.imageBackground}>
+                  <Text style={styles.text}>{data.flavor}</Text>
+                </ImageBackground>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
       </View>
     );
   }

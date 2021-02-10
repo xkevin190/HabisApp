@@ -19,14 +19,14 @@ export const AplicationReducer = (state = AplicationState, action) => {
       return { ...state, order: action.payload }
     }
     case ActionTypes.DELETE_ORDER: {
-      console.log('entro en este reducer')
       const orders = state.order.filter((order => {
         return action.payload !== order.Order_ID
       }))
 
-      console.log("aquii", orders)
-
       return { ...state, order: orders.slice() }
+    }
+    case ActionTypes.CREATE_ORDER: {
+      return { ...state, order: state.order.concat(action.payload) }
     }
     default: {
       return state;

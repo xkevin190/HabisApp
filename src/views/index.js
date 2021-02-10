@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Text } from 'react-native';
 import Auth from './Auth';
 import { connect } from 'react-redux';
-import { logout } from '../store/AplicationAction';
+import { logout, signOff } from '../store/AplicationAction';
 import Home from './Home';
 class DualApp extends PureComponent {
   constructor(props) {
@@ -21,7 +21,7 @@ class DualApp extends PureComponent {
     return (
       <View>
         {!this.props.auth && <Auth {...this.props} />}
-        {this.props.auth && <Home order={this.props.order} navigation={this.props.navigation} />}
+        {this.props.auth && <Home order={this.props.order} signOff={this.props.signOff} navigation={this.props.navigation} />}
       </View>
     );
   }
@@ -29,4 +29,4 @@ class DualApp extends PureComponent {
 
 const mapStateToProps = (state) => state.app;
 
-export default connect(mapStateToProps, { logout })(DualApp);
+export default connect(mapStateToProps, { logout, signOff })(DualApp);

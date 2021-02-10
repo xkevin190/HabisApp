@@ -29,7 +29,7 @@ class Orders extends Component {
           text: 'OK',
           onPress: () => this.props.deleteOrder(id, () => {
             ToastAndroid.showWithGravityAndOffset(
-              'Delete successful',
+              'Order created successfully',
               1,
               ToastAndroid.BOTTOM,
               25,
@@ -42,11 +42,18 @@ class Orders extends Component {
     );
   }
 
+  /**
+   * return to home view
+   */
+  handleBack = () => {
+    this.props.navigation.goBack()
+  }
+
   render() {
     console.log(this.props.order)
     return (
-      <Container>
-        <Header title='Orders' navigation={this.props.navigation} />
+      <View style={{ flex: 1 }}>
+        <Header title='Orders' navigation={this.props.navigation} back={this.handleBack} />
         <Content padder>
           {this.props.order.map((order, key) => (
             <Card key={key} >
@@ -73,7 +80,7 @@ class Orders extends Component {
             </Card>
           ))}
         </Content>
-      </Container>
+      </View>
     );
   }
 }

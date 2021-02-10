@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, StatusBar, StyleSheet, Text } from 'react-native';
+import { View, ImageBackground, StatusBar, StyleSheet, Text, ToastAndroid } from 'react-native';
 import { Button, Icon, Picker } from 'native-base';
 import ButonComponent from '../components/Button'
-export default class NewOrder extends Component {
+import { connect } from 'react-redux';
+import { createNewOrder } from '../store/AplicationAction'
+class NewOrder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +24,9 @@ export default class NewOrder extends Component {
   handleBack = () => {
     this.props.navigation.goBack()
   }
+
+
+
 
   /**
    * select crust
@@ -62,11 +67,21 @@ export default class NewOrder extends Component {
       Crust: this.state.crustButton,
       Flavor: navigation.state.params.flavor,
       Size: this.state.size,
-      Table_No: this.state.tableNo,
-      Timestamp: new Date().toISOString()
+      Table_No: Number(this.state.tableNo),
+      Timestamp: new Date().toISOString(),
+      Order_ID: navigation.state.params.order
     }
 
-    console.log(sendObject);
+    this.props.createNewOrder(sendObject, () => {
+      ToastAndroid.showWithGravityAndOffset(
+        'Delete successful',
+        1,
+        ToastAndroid.BOTTOM,
+        25,
+        60,
+      );
+      this.handleBack()
+    })
   }
 
   render() {
@@ -84,7 +99,10 @@ export default class NewOrder extends Component {
               <Icon style={styles.iconStyle} name="close" />
             </Button>
 
-            <Button transparent style={styles.buttonsStyle}>
+            <Button transparent
+              onPress={() => this.props.navigation.navigate('orders')}
+              style={styles.buttonsStyle}
+            >
               <Icon style={styles.iconStyle} name="pizza" />
             </Button>
 
@@ -188,16 +206,16 @@ export default class NewOrder extends Component {
               >Medium</Text>
             </Button>
             <Button
-              onPress={() => { this.selectSize('B') }}
+              onPress={() => { this.selectSize('L') }}
               style={
-                size === 'B' ?
+                size === 'L' ?
                   styles.styleButtonSizeSelected :
                   styles.styleButtonSize}
               bordered success
             >
               <Text
                 style={
-                  size === 'B' ?
+                  size === 'L' ?
                     styles.textButtonSelected :
                     styles.textButton
                 }
@@ -230,7 +248,7 @@ export default class NewOrder extends Component {
 
           <View style={{ height: 50, width: "100%", paddingHorizontal: '5%', marginTop: 10 }}>
             <ButonComponent
-              title="Holaaaaa"
+              title="ORDER NOW"
               type="primary"
               handleSubmit={this.handleSubmit}
             />
@@ -240,6 +258,8 @@ export default class NewOrder extends Component {
     );
   }
 }
+
+export default connect(null, { createNewOrder })(NewOrder)
 
 
 const styles = StyleSheet.create({
