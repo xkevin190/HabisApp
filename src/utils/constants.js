@@ -1,3 +1,4 @@
+import { ToastAndroid } from 'react-native'
 const message = {
   success: ""
 }
@@ -44,3 +45,14 @@ export const pizzas = [
   }
 
 ]
+
+
+export const toast = (message) => {
+  ToastAndroid.showWithGravityAndOffset(
+    message,
+    1,
+    ToastAndroid.BOTTOM,
+    25,
+    60,
+  );
+}

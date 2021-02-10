@@ -29,7 +29,7 @@ class Orders extends Component {
           text: 'OK',
           onPress: () => this.props.deleteOrder(id, () => {
             ToastAndroid.showWithGravityAndOffset(
-              'Order created successfully',
+              'Delete successful',
               1,
               ToastAndroid.BOTTOM,
               25,

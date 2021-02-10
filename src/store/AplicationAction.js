@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ActionTypes } from '../store/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { toast } from '../utils/constants';
 
 /**
  * A ction in charge of login
@@ -81,9 +82,20 @@ export const createNewOrder = (order, callback) => async (dispatch) => {
     })
     callback()
   }).catch(err => {
-    console.log(err.response.data)
+    errorMessage(err, dispatch)
   })
+}
 
+const errorMessage = async (err, dispatch) => {
+  if (err.response) {
+    toast(err.response.data.msg)
+    if (err.response.data.msg == 'Token has expired') {
+      console.log('entro aqui')
+      dispatch(signOff())
+    }
+  } else {
+    toast('Check your internet connection')
+  }
 }
 
 export const getOrder = async () => {
@@ -111,5 +123,4 @@ export const signOff = () => async (dispatch) => {
     type: ActionTypes.INITIAL_STATE,
     payload: false,
   });
-
 }

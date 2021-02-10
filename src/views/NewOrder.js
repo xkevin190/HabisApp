@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, StatusBar, StyleSheet, Text, ToastAndroid } from 'react-native';
+import { View, ImageBackground, StatusBar, StyleSheet, Text, ToastAndroid, ScrollView, Dimensions } from 'react-native';
 import { Button, Icon, Picker } from 'native-base';
 import ButonComponent from '../components/Button'
 import { connect } from 'react-redux';
@@ -74,7 +74,7 @@ class NewOrder extends Component {
 
     this.props.createNewOrder(sendObject, () => {
       ToastAndroid.showWithGravityAndOffset(
-        'Delete successful',
+        'Order created successfully',
         1,
         ToastAndroid.BOTTOM,
         25,
@@ -89,11 +89,14 @@ class NewOrder extends Component {
     const { size, crustButton } = this.state
 
     const arrayPicker = ['1', '2', '3', '4']
+    const windowHeight = Dimensions.get('window');
+
     return (
-      <View style={{ flex: 1 }}>
-        <StatusBar translucent backgroundColor="transparent" />
-        <View style={{ flex: 1 }} >
-          <ImageBackground source={navigation.state.params.image} style={styles.imageBackground}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, maxHeight: '100%' }}>
+        <View style={{ flex: 1 }}>
+          <StatusBar translucent backgroundColor="transparent" />
+          <View style={windowHeight.height > 650 ? { height: '50%' } : { height: '30%' }} >
+            <ImageBackground source={navigation.state.params.image} style={styles.imageBackground}>
 
             <Button transparent style={styles.buttonsStyle} onPress={this.handleBack}>
               <Icon style={styles.iconStyle} name="close" />
@@ -108,7 +111,8 @@ class NewOrder extends Component {
 
           </ImageBackground>
         </View>
-        <View style={{ flex: 1 }}>
+
+        <View style={{ height: '100%' }}>
 
           <View style={styles.titleStyle}>
             <Text style={styles.textStyle}>{navigation.state.params.flavor}</Text>
@@ -245,7 +249,6 @@ class NewOrder extends Component {
               </View>
             </View>
           </View>
-
           <View style={{ height: 50, width: "100%", paddingHorizontal: '5%', marginTop: 10 }}>
             <ButonComponent
               title="ORDER NOW"
@@ -254,7 +257,8 @@ class NewOrder extends Component {
             />
           </View>
         </View>
-      </View >
+        </View >
+      </ScrollView >
     );
   }
 }
